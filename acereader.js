@@ -15,19 +15,21 @@ var test = (text,wpm,noWords,lines) => {
     reader = document.getElementById("reader");
     // reader1 = document.getElementById("reader1");
     let i=0;
-    let testArr = text.split(" ");
+    let testArr = text.replace(/\s{2,}/g,' ').trim().split(" ");
     let nw =  parseInt(noWords);
     // console.log(isPause);
     
     	aceReader = setInterval(()=> {
         if(!isPause) {
             let str = "";
-            for(let j = i;j<i+nw +lines ;j++) {
+            //dn + (a-d): (lines)*nw +(i-)
+            if(!lines)
+            	lines = 1;
+            let limit = lines*nw +(i-lines);
+            for(let j = i;j<=limit ;j=j+lines) {
             	
             	if(testArr[j]!=null)
-                	str = str+" " + testArr[j];
-                j=j+lines;
-                
+                	str = str+" " + testArr[j];                               
             }
             //str="
             //str = testArr[i++]; 
