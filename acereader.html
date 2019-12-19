@@ -13,43 +13,41 @@
 	<title>Hello, world!</title>
 </head>
 <body>
-	<div class="container panel " style="margin-top: 20px;">
+	<div class="container-fluid panel" style="margin-top: 20px;">
 		<div id="read"  class="row  align-items-center" style="margin-top: 10%;margin-left: 10%;">
-			<div class="col-sm-6">
+			<div class="col-md-6">
 				<div class="row">
-					<div class="col-sm-6">
+					<div class="col-md-12">
 						<h3>Text to read</h3>
-						<textarea type="text" class="newPrompt" id="txtInput" />
+						<textarea rows="8" type="text" class="newPrompt form-control" id="txtInput" />
 						</textarea>
 					</div>					
 				</div>
 				<div class="row" style="margin-top: 10px;">
-					<div class="col-sm-4" >
-						<button id="btnBegin" class="btn-success form-control">Begin</button>
+					<div class=" col-md-2" >
+						<button id="btnBegin" class="btn-success btn">Begin</button>
 					</div>	
-					<div class="col-sm-4">
+					<div class="col-md-2">
 						<button type="button" class="btn btn-info btn" data-toggle="modal" data-target="#myModal">Settings</button>
 					</div>							
 				</div>	
 			</div>		
 		</div>	
-		<div id="display"  class="row hide" style="margin-top: 10%;margin-left: 10%;">
-			<div class="col-sm-6">							
-				<div class="row  align-items-center">
-					<div class="col-sm-6">
-						<h3>Reader</h3>
-						<textarea id="reader" class="newPrompt"></textarea>
-					</div>									
-				</div>				
+		<div id="display"  class="row hide" style="margin-left: 10%;">
+			<div class="col-md-12">	
 				<div class="row" style="margin-top: 10px;">
-					<div class="col-sm-4" >
-						<button id="btnPause" class="btn-success form-control">Pause</button>
-					</div>	
-					<div class="col-sm-4" >
+					<div class="col-md-4" >
 						<button id="btnNewtext" class="btn-success form-control">New Text</button>
-					</div>														
-				</div>	
-				
+					</div>
+					<div class="col-md-4" >
+						<button id="btnPause" class="btn-success form-control">Pause</button>
+					</div>																		
+				</div>							
+				<div class="row  align-items-center">
+					<div class="col-md-12">						
+						<div id="reader" class="reader" ></div>
+					</div>									
+				</div>								
 			</div>		
 		</div>	
 		
@@ -70,33 +68,33 @@
 		<div class="col-md-12">
 			
 			<div class="row">
-				<div class="col-md-4">
+				<div class="col-md-6">
 					<label class="label" >Words per minute:</label>						
 				</div>										
-				<div class="col-md-2">
+				<div class="col-md-4">
 					<input class="form-control" id="wpm" type="text"/>	
 				</div>
 				
 			</div>
 			<div class="row">
-				<div class="col-sm-4">
+				<div class="col-md-6">
 					<label class="label">Words chunk:</label>						
 				</div>										
-				<div class="col-sm-2">
+				<div class="col-md-4">
 					<input class="form-control" id="noWords" type="text"/>	
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-sm-4">
+				<div class="col-md-6">
 					<label class="label">Lines:</label>						
 				</div>										
-				<div class="col-sm-2">
+				<div class="col-md-4">
 					<input class="form-control" id="lines" type="text"/>	
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-4">
-					<button id="btnReset" class="btn-success form-control" data-dismiss="modal">Reset</button>
+					<button id="btnReset" class="btn-success form-control" data-dismiss="modal">Save</button>
 				</div>				
 			</div>			
 		</div>
@@ -111,8 +109,8 @@
 	
 <style type="text/css">
 	.newPrompt {
-    width: 636px;
-    height: 267px;
+    
+    height: 300px;
     background-color: #fff;
 	padding: 10px 14px;
 	border: 1px solid
@@ -123,6 +121,9 @@
 }
 .hide{
 	display: none;
+}
+.reader {
+	font-size: 60px;	
 }
 </style>
 <script type="text/javascript" src="acereader.js"></script>

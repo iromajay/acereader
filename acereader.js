@@ -10,12 +10,14 @@ localStorage.setItem("lines",0);
 
 var isPause = false;
 var aceReader;
+var reader = document.getElementById("reader");
 var test = (text,wpm,noWords,lines) => {
     // console.log("test="+text+","+wpm+","+noWords);
-    reader = document.getElementById("reader");
-    // reader1 = document.getElementById("reader1");
+    
+    // reader1 = documefreadernt.getElementById("reader1");
     let i=0;
-    let testArr = text.replace(/\s{2,}/g,' ').trim().split(" ");
+    let testArr = text.replace(/\n/g,' ').replace(/\s{2,}/g,' ').trim().split(" ");
+    console.log(testArr);
     let nw =  parseInt(noWords);
     // console.log(isPause);
     
@@ -25,19 +27,47 @@ var test = (text,wpm,noWords,lines) => {
             //dn + (a-d): (lines)*nw +(i-)
             if(!lines)
             	lines = 1;
-            let limit = lines*nw +(i-lines);
-            for(let j = i;j<=limit ;j=j+lines) {
+            //let limit = nw * lines +(i-lines);
+            // let limit =nw;
+            let wc = nw;
+
+            
+            // for(let j = i;j<=limit*nw;j++) {
             	
-            	if(testArr[j]!=null)
-                	str = str+" " + testArr[j];                               
+            // 	if(testArr[j]!=null)
+            //         if(!wc) {
+            //     	   str = str+" " + "<div>"+testArr[j]+"</div>"; 
+                       
+            //            wc = nw; 
+            //         }
+            //         else {
+            //             if(str==""){
+            //                 str = "<div>"+str + " " +testArr[j]+"</div>";     
+            //             }
+            //             else {
+            //                 str = str + "<span>" +" " +testArr[j] + "</span>";
+            //             }
+            //             wc--; 
+                                                    
+            //         }
+            // }    
+            let newStr = "";
+            for(let j=i;j<i+(lines*nw);j=j+nw) {                
+                for(let w=j;w<j+nw;w++) {
+                    if(testArr[w]!=null)
+                        newStr += " " + testArr[w];
+                }
+                if(newStr!==""){
+                    str +="<div>"+ newStr +"</div>"; 
+                    newStr = "";
+                }
             }
-            //str="
-            //str = testArr[i++]; 
-            reader.value ="";
-            reader.value =str;
+
+            reader.innerHTML ="";
+            reader.innerHTML =str;
             // reader1.innerHTML ="";
             // reader1.innerHTML ="<h1>"+str+"</h1>";
-            i=i+ nw+lines;
+            i+=lines*nw;
             if(i>=testArr.length)
                 i=0;
             
@@ -49,7 +79,7 @@ document.getElementById("btnPause").addEventListener("click",()=>{
     event.preventDefault();
     isPause = !isPause;
     if(isPause)
-    	document.getElementById("btnPause").innerHTML = "Read";
+    	document.getElementById("btnPause").innerHTML = "Continue";
     else
     	document.getElementById("btnPause").innerHTML = "Pause";
 });
@@ -76,13 +106,17 @@ document.getElementById("btnBegin").addEventListener("click",()=>{
     localStorage.setItem("text",document.getElementById("txtInput").value);       
     let text = localStorage.getItem("text");
     console.log(text+","+wpm+","+noWords+",lines="+lines);
+    reader.innerHTML = "";
+    str= "";
     clearInterval(aceReader);
+
     test(text,wpm,noWords,lines);
 });
 document.getElementById("btnNewtext").addEventListener("click",()=>{
     //event.preventDefault();
     document.getElementById("display").className+=" hide";
     document.getElementById("read").classList.remove("hide");
+    reader.value = "";
 });
 
 $('#myModal').on('show.bs.modal', function () {	
@@ -90,4 +124,3 @@ $('#myModal').on('show.bs.modal', function () {
     $("#noWords").val(localStorage.getItem("noWords"));    
     $("#lines").val(localStorage.getItem("lines"));    
  })
-// test(text,30,4);
